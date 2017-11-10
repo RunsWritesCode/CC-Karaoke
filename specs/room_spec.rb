@@ -10,7 +10,7 @@ class TestRoom < Minitest::Test
     @song1 = Song.new("Motorcycle emptiness", "Manic Street Preachers")
     @song2 = Song.new("If you tolerate this, then your children will be next", "Manic Street Preachers")
     @song3 = Song.new("A prologue to history", "Manic Street Preachers")
-    @song4 = Song.new("Faster", "Manic Street Preachers")
+    @song4 = Song.new("4st7", "Manic Street Preachers")
     @song5 = Song.new("Roses in the hospital", "Manic Street Preachers")
     @song6 = Song.new("Found that soul", "Manic Street Preachers")
     @song7 = Song.new("Running up that hill", "Kate Bush")
@@ -25,10 +25,10 @@ class TestRoom < Minitest::Test
     @room2 = Room.new("Running Room", 44, @songs2)
 
 
-    @guest1 = Guest.new("James Dean Bradfield")
-    @guest2 = Guest.new("Nicky Wire")
-    @guest3 = Guest.new("Sean Moore")
-    @guest4 = Guest.new("Richey Edwards")
+    @guest1 = Guest.new("James Dean Bradfield", 100)
+    @guest2 = Guest.new("Nicky Wire", 80)
+    @guest3 = Guest.new("Sean Moore", 60)
+    @guest4 = Guest.new("Richey Edwards", 47)
 
 
   end
@@ -49,18 +49,21 @@ class TestRoom < Minitest::Test
     assert_equal(0, @room1.guests())
   end
 
-  # def test_check_in_beyond_capacity()
-  #   @room1.check_in(@guest1)
-  #   @room1.check_in(@guest2)
-  #   @room1.check_in(@guest3)
-  #   @room1.check_in(@guest4)
-  #   assert_equal("Sorry, this room is for die hard Manics fans", @room1.guests())
-  # end
+  def test_check_in_beyond_capacity()
+    @room1.check_in(@guest1)
+    @room1.check_in(@guest2)
+    @room1.check_in(@guest3)
+    assert_equal("Sorry, this room is for die hard Manics fans", @room1.check_in(@guest4))
+  end
 
 
   def test_add_song_to_room()
     @room1.add_song(@song1)
     assert_equal([@song1, @song2, @song3, @song4, @song5, @song6, @song10, @song1], @room1.songs())
+  end
+
+  def check_if_room_has_fav_song()
+    @room1.check_fav_song(@)
   end
 
 end
