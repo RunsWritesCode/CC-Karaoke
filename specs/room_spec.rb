@@ -25,28 +25,28 @@ class TestRoom < Minitest::Test
     @room2 = Room.new("Running Room", 44, @songs2)
 
 
-    @guest1 = Guest.new("James Dean Bradfield", 100)
-    @guest2 = Guest.new("Nicky Wire", 80)
-    @guest3 = Guest.new("Sean Moore", 60)
-    @guest4 = Guest.new("Richey Edwards", 47)
-
+    @guest1 = Guest.new("James Dean Bradfield", 100, @song1)
+    @guest2 = Guest.new("Nicky Wire", 80, @song3)
+    @guest3 = Guest.new("Sean Moore", 60, @song6)
+    @guest4 = Guest.new("Richey Edwards", 47, @song4)
 
   end
 
   def test_check_in_guest()
+    assert_equal(0, @room1.guests.count())
     @room1.check_in(@guest1)
-    assert_equal(1, @room1.guests())
+    assert_equal(1, @room1.guests.count())
   end
 
   def test_check_out_guest()
-    @room1.check_out(@guest1)
-    assert_equal(0, @room1.guests())
+    @room1.check_out()
+    assert_equal(0, @room1.guests.count())
   end
 
   def test_check_in_check_out()
     @room1.check_in(@guest1)
-    @room1.check_out(@guest1)
-    assert_equal(0, @room1.guests())
+    @room1.check_out()
+    assert_equal(0, @room1.guests.count())
   end
 
   def test_check_in_beyond_capacity()
@@ -62,8 +62,11 @@ class TestRoom < Minitest::Test
     assert_equal([@song1, @song2, @song3, @song4, @song5, @song6, @song10, @song1], @room1.songs())
   end
 
-  def check_if_room_has_fav_song()
-    @room1.check_fav_song(@)
+  def test_check_if_fav_song_in_room
+    assert_equal(true, @room1.is_favourite_song?(@guest4.fav_song))
+    assert_equal(false, @room2.is_favourite_song?(@guest4.fav_song))
   end
+
+
 
 end
