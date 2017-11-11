@@ -6,27 +6,28 @@ class Room
     @name = name
     @capacity = capacity
     @songs = songs
-    @guests = 0
+    @guests = []
   end
-
-
 
   def check_in(guest)
-    # if room[:capacity] > guests.length
-    @guests += 1
-    # end
-    # else return "Sorry, this room is for die hard Manics fans"
+    if @capacity > @guests.count
+      @guests << guest
+    else "Sorry, this room is for die hard Manics fans"
+    end
   end
 
-  def check_out(guest)
-    if @guests > 0
-      @guests -= 1
-    end
+  def check_out()
+    @guests.clear
   end
 
   def add_song(song)
     @songs << song
   end
+
+  def is_favourite_song?(song)
+    @songs.include?(song)
+  end
+
 
 
 end
